@@ -30,11 +30,12 @@ function addBookResponse(req, res) {
   console.log(req.body)
   let { bookName, bookDesc, bookStatus } = req.body;
   let emailAddress = req.query.email
+  console.log('add ',emailAddress)
 
   UserSchema.find({ email: emailAddress }, (error, userdata) => {
     if (error) { res.send('cant find user') }
     else {
-      console.log('before adding', userdata)
+      console.log('before adding', userdata[0])
       userdata[0].books.push({
         name: bookName,
         description: bookDesc,
@@ -50,33 +51,36 @@ function addBookResponse(req, res) {
 
 // server.get('/books', handleBookResponse)
 // localhost:3001/deleteCat/1?ownerName=razan
-server.delete('/books/:bookId',deleteBookHandler)
+// server.delete('/books/:bookId',deleteBookHandler)
 
-function deleteBookHandler(req,res) {
-  console.log('deeeeeee');
-  console.log(req.params.bookId);
-  console.log(req.query)
+// function deleteBookHandler(req,res) {
+//   console.log('deeeeeee');
+//   console.log('req.params = ',req.params);
+//   console.log(req.query)
 
-  let index = Number(req.params.bookId);
-  console.log(index)
-  let emailAddress = req.query.email;
-  myOwnerModel.find({email: emailAddress},(error,userdata)=>{
-      if(error) {res.send('cant find user')}
-      else{
-         console.log('before deleting',userdata[0].books)
+//   let index = Number(req.params.bookId);
+//   // console.log(index)
+//   let emailAddress = req.params.email;
+//   console.log('delete: ',req.params)
+//   // console.log('userschema ',UserSchema)
 
-         let newBooksArr = userdata[0].books.filter((book,idx)=>{
-            //  if(idx !== index) {return book}
-          return idx!==index
-         })
-         userdata[0].books=newBooksArr
-         console.log('after deleting',userdata[0].books)
-         userdata[0].save();
-         res.send(userdata[0].books)
-      }
+//   UserSchema.find({email: emailAddress},(error,userdata)=>{
+//       if(error) {res.send('cant find user')}
+//       else{
+//          console.log('userdata ',userdata[0])
 
-  })
-}
+//          let newBooksArr = userdata[0].books.filter((book,idx)=>{
+//              if(idx !== index) {return book}
+//           // return idx!==index
+//          })
+//          userdata[0].books=newBooksArr
+//         //  console.log('after deleting',userdata[0].books)
+//          userdata[0].save();
+//          res.send(userdata[0].books)
+//       }
+
+//   })
+// }
 
 
 
