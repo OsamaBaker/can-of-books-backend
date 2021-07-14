@@ -21,9 +21,18 @@ const myUserModel = mongoose.model("User", UserSchema);
 
 
 
+
+
+
+
+
+
+
+
+
 function seedUserCollection() {
   const books = new myUserModel({
-    email: "osqadoomy@gmail.com",
+    email: "laithhayajneh98@gmail.com",
     books: [
       {
         name: "The Growth Mindset",
